@@ -2,12 +2,6 @@
 
 namespace UmnLib\Core;
 
-/**
- * University of Minnesota Libraries configuration system.
- * 
- * @package Config
- * @author David Naughton <naughton@umn.edu> 
- */
 class Set
 {
     protected $members = array();
