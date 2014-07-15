@@ -4,20 +4,8 @@ A PHP package for mathematical sets and set operations.
 
 ## Installing
 
-Install via [Composer](http://getcomposer.org). In your project's `composer.json`:
+This is an old pre-Composer version of this package, which requires manual installation.
 
-```json
-  "require": {
-    "umnlib/set": ">=1.0.*"
-  },
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "git@github.umn.edu:Libraries/set-php.git"
-    }
-  ]
-```
+## Newer Versions
 
-## Older Versions
-
-For older versions of this package that did not use Composer, see the `0.x.y` releases.
+For newer versions of this package that use Composer, see any versions `>=1.0.0`.

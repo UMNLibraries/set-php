@@ -1,7 +1,5 @@
 <?php
 
-namespace UmnLib\Core;
-
 class Set
 {
     protected $members = array();
@@ -9,15 +7,15 @@ class Set
     {
         return array_keys( $this->members );
     }
-    public function membersArray()
+    public function members_array()
     {
         return array_keys( $this->members );
     }
-    public function membersHash()
+    public function members_hash()
     {
         return $this->members;
     }
-    protected function &membersHashref()
+    protected function &members_hashref()
     {
         return $this->members;
     }
@@ -43,7 +41,7 @@ class Set
 
     public function contains( $member )
     {
-        $members = $this->membersHash();
+        $members = $this->members_hash();
         return array_key_exists($member, $members) ? true : false;
     }
 
@@ -54,31 +52,31 @@ class Set
 
     public function add( $member )
     {
-        $members = &$this->membersHashref();
+        $members = &$this->members_hashref();
         // Set this to a true value so that isset() will return true.
         $members[$member] = true;
     }
 
     public function delete( $member )
     {
-        $members = &$this->membersHashref();
+        $members = &$this->members_hashref();
         // Set this to a true value so that isset() will return true.
         unset( $members[$member] );
     }
 
     public function clear()
     {
-        foreach ($this->membersArray() as $member) {
+        foreach ($this->members_array() as $member) {
             $this->delete( $member );
         }
     }
 
     public function size()
     {
-        return count( $this->membersArray() );
+        return count( $this->members_array() );
     }
 
-    public function isEmpty()
+    public function is_empty()
     {
         return $this->size() == 0 ? true : false;
     }
@@ -86,9 +84,9 @@ class Set
     //public function union( $set )
     public function union()
     {
-        $a = $this->membersHash();
+        $a = $this->members_hash();
         $args = func_get_args();
-        $b = $this->argMembersHash( $args );
+        $b = $this->arg_members_hash( $args );
         // Don't need array_unique with hashes:
         $class = get_class($this);
         $members = array_keys(array_merge($a, $b)); 
@@ -97,9 +95,9 @@ class Set
 
     public function intersect()
     {
-        $a = $this->membersHash();
+        $a = $this->members_hash();
         $args = func_get_args();
-        $b = $this->argMembersHash( $args );
+        $b = $this->arg_members_hash( $args );
         // Don't need array_unique with hashes:
         $class = get_class($this);
         $members = array_keys(array_intersect_assoc($a, $b));
@@ -108,32 +106,36 @@ class Set
 
     public function diff()
     {
-        $a = $this->membersHash();
+        $a = $this->members_hash();
         $args = func_get_args();
-        $b = $this->argMembersHash( $args );
+        $b = $this->arg_members_hash( $args );
         $class = get_class($this);
         $members = array_keys(array_diff_assoc($a, $b));
         return new $class( $members );
     }
 
-    protected function argMembersHash( $args )
+    protected function arg_members_hash( $args )
     {
-        $membersHash = array();
-        if (is_object($args[0]) && method_exists($args[0], 'membersHash')) {
-            $membersHash = $args[0]->membersHash();
+        
+        $members_hash = array();
+        if (is_object($args[0]) && method_exists($args[0], 'members_hash')) {
+            $members_hash = $args[0]->members_hash();
         } else if (is_array($args[0])) {
             // Here we just assume that the user passed in an array of scalars.
             // TODO: Do more validation?
             foreach ($args[0] as $member) {
-                $membersHash[$member] = true;
+                $members_hash[$member] = true;
             }
         } else {
             // Here we just assume that the user passed in an array of scalars.
             // TODO: Do more validation?
             foreach ($args as $member) {
-                $membersHash[$member] = true;
+                $members_hash[$member] = true;
             }
         }
-        return $membersHash;
+        return $members_hash;
     }
-}
+
+} // end class Set
+
+?>
