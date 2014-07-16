@@ -10,14 +10,14 @@ class SetTest extends \PHPUnit_Framework_TestCase
     {
         $emptySet = new Set();
         $this->assertInstanceOf('UmnLib\\Core\\Set', $emptySet);
-        $this->assertEquals( $emptySet->members(), array() );
-        $this->assertEquals( $emptySet->size(), 0 );
+        $this->assertEquals(array(), $emptySet->members());
+        $this->assertEquals(0, $emptySet->size());
 
         $members = array('foo','bar','baz');
         $set = new Set( $members );
         $this->assertInstanceOf('UmnLib\\Core\\Set', $set);
-        $this->assertEquals($set->members(), $members);
-        $this->assertEquals( $set->size(), 3 );
+        $this->assertEquals($members, $set->members());
+        $this->assertEquals(3, $set->size());
         return array($emptySet, $set);
     }
 
@@ -27,8 +27,8 @@ class SetTest extends \PHPUnit_Framework_TestCase
     public function testIsEmpty(Array $sets)
     {
         list($emptySet, $set) = $sets;
-        $this->assertTrue( $emptySet->isEmpty() );
-        $this->assertFalse( $set->isEmpty() );
+        $this->assertTrue($emptySet->isEmpty());
+        $this->assertFalse($set->isEmpty());
     }
 
     /**
@@ -37,9 +37,9 @@ class SetTest extends \PHPUnit_Framework_TestCase
     public function testContains(Array $sets)
     {
         list($emptySet, $set) = $sets;
-        $this->assertFalse( $emptySet->contains('foo') );
-        $this->assertTrue( $set->contains('foo') );
-        $this->assertFalse( $set->contains('fu') );
+        $this->assertFalse($emptySet->contains('foo'));
+        $this->assertTrue($set->contains('foo'));
+        $this->assertFalse($set->contains('fu'));
     }
 
     /**
@@ -121,7 +121,7 @@ class SetTest extends \PHPUnit_Framework_TestCase
         // Disjoint sets:
         $a = new Set('fee','fye','foe','fum');
         $b = new Set('hickory','dickory','dock');
-        $aIntersectB = $a->intersect( $b );
+        $aIntersectB = $a->intersect($b);
         $this->assertEmpty($aIntersectB->members());
         /*
         $this->assertEquals(
@@ -149,9 +149,9 @@ class SetTest extends \PHPUnit_Framework_TestCase
         // Disjoint sets:
         $aMembers = array('fee','fye','foe','fum');
         $bMembers = array('hickory','dickory','dock');
-        $a = new Set( $aMembers );
-        $b = new Set( $bMembers );
-        $aDiffB = $a->diff( $b );
+        $a = new Set($aMembers);
+        $b = new Set($bMembers);
+        $aDiffB = $a->diff($b);
         $this->assertEquals(
             $aMembers,
             $aDiffB->members()
@@ -167,7 +167,7 @@ class SetTest extends \PHPUnit_Framework_TestCase
         );
 
         // Intersecting sets:
-        $c = new Set('kung','foo' );
+        $c = new Set('kung','foo');
         $cDiffD = $c->diff('foo','manchu');
         $this->assertEquals(
             array('kung'),
